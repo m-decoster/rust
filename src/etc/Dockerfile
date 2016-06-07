@@ -19,7 +19,7 @@ FROM ubuntu:xenial
 RUN apt-get update && apt-get -y install \
     curl g++ git make \
     libedit-dev zlib1g-dev \
-    llvm-3.7-tools
+    llvm-3.7-tools cmake
 
 RUN mkdir /build
 WORKDIR /build

@@ -32,8 +32,6 @@ ifeq ($(CFG_LLVM_ROOT),)
 
 LLVM_STAMP_$(1) = $$(CFG_LLVM_BUILD_DIR_$(1))/llvm-auto-clean-stamp
 
-ifeq ($$(findstring msvc,$(1)),msvc)
-
 $$(LLVM_CONFIG_$(1)): $$(LLVM_DEPS) $$(LLVM_STAMP_$(1))
 	@$$(call E, cmake: llvm)
 	$$(Q)$$(CFG_CMAKE) --build $$(CFG_LLVM_BUILD_DIR_$(1)) \
@@ -41,18 +39,6 @@ $$(LLVM_CONFIG_$(1)): $$(LLVM_DEPS) $$(LLVM_STAMP_$(1))
 	$$(Q)touch $$(LLVM_CONFIG_$(1))
 
 clean-llvm$(1):
-
-else
-
-$$(LLVM_CONFIG_$(1)): $$(LLVM_DEPS) $$(LLVM_STAMP_$(1))
-	@$$(call E, make: llvm)
-	$$(Q)$$(MAKE) -C $$(CFG_LLVM_BUILD_DIR_$(1)) $$(CFG_LLVM_BUILD_ENV_$(1)) ONLY_TOOLS="$$(LLVM_TOOLS)"
-	$$(Q)touch $$(LLVM_CONFIG_$(1))
-
-clean-llvm$(1):
-	$$(Q)$$(MAKE) -C $$(CFG_LLVM_BUILD_DIR_$(1)) clean
-
-endif
 
 else
 clean-llvm$(1):
